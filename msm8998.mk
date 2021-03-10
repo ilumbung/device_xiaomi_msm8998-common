@@ -16,9 +16,6 @@
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_n_mr1.mk)
 
-# Enable updating of APEXes
-$(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
-
 # Overlay
 DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay
@@ -314,10 +311,8 @@ PRODUCT_PACKAGES += \
 
 # Power
 PRODUCT_PACKAGES += \
-    android.hardware.power-service.msm8998-libperfmgr
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/power-libperfmgr/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
+    android.hardware.power-service-qti \
+    vendor.qti.hardware.perf@1.0.vendor
 
 # Protobuf
 PRODUCT_PACKAGES += \
@@ -325,6 +320,7 @@ PRODUCT_PACKAGES += \
     libprotobuf-cpp-lite-vendorcompat
 
 # Properties
+include $(LOCAL_PATH)/default_prop.mk
 include $(LOCAL_PATH)/vendor_prop.mk
 
 # QCOM
@@ -375,9 +371,7 @@ PRODUCT_PACKAGES += \
 
 # Soong
 PRODUCT_SOONG_NAMESPACES += \
-    $(LOCAL_PATH) \
-    hardware/google/interfaces \
-    hardware/google/pixel
+    $(LOCAL_PATH)
 
 # Telephony
 PRODUCT_PACKAGES += \

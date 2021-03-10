@@ -45,7 +45,7 @@ BOARD_KERNEL_PAGESIZE := 4096
 BOARD_RAMDISK_OFFSET := 0x01000000
 TARGET_KERNEL_SOURCE := kernel/xiaomi/msm8998
 TARGET_KERNEL_CLANG_COMPILE := true
-TARGET_KERNEL_CLANG_VERSION := r407598
+TARGET_KERNEL_CLANG_VERSION := r412851
 
 BOARD_KERNEL_CMDLINE := androidboot.console=ttyMSM0 androidboot.hardware=qcom
 BOARD_KERNEL_CMDLINE += user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3
@@ -87,6 +87,9 @@ TARGET_ENABLE_MEDIADRM_64 := true
 
 # Filesystem
 TARGET_FS_CONFIG_GEN := $(PLATFORM_PATH)/config.fs
+
+# Flatten APEXs for performance
+OVERRIDE_TARGET_FLATTEN_APEX := true
 
 # GPS
 USE_DEVICE_SPECIFIC_GPS := true

@@ -78,13 +78,16 @@ function blob_fixup() {
         sed -i 's|/product/framework/qcrilhook.jar|/system_ext/framework/qcrilhook.jar|g' "${2}"
         ;;
     system_ext/lib64/libdpmframework.so)
-        "${PATCHELF}" --add-needed "libshim_dpmframework.so" "${2}"
+        for LIBDPM_SHIM in $(grep -L "libshim_dpmframework.so" "${2}"); do
+            "${PATCHELF}" --add-needed "libshim_dpmframework.so" "$LIBDPM_SHIM"
+        done
         ;;
     vendor/etc/permissions/qti_libpermissions.xml)
         sed -i 's|name=\"android.hidl.manager-V1.0-java|name=\"android.hidl.manager@1.0-java|g' "${2}"
         ;;
     vendor/lib/hw/camera.msm8998.so)
         "${PATCHELF}" --remove-needed "android.hidl.base@1.0.so" "${2}"
+        "${PATCHELF}" --replace-needed "libminikin.so" "libminikin-v28.so" "${2}"
         ;;
     vendor/lib/libFaceGrade.so)
         "${PATCHELF}" --remove-needed "libandroid.so" "${2}"
@@ -101,6 +104,7 @@ function blob_fixup() {
         ;;
     vendor/lib/libminikin-v28.so)
         "${PATCHELF}" --set-soname "libminikin-v28.so" "${2}"
+        "${PATCHELF}" --replace-needed "libicuuc.so" "libicuuc-v28.so" "${2}"
         ;;
     vendor/lib/libmmcamera2_sensor_modules.so)
         sed -i 's|/data/misc/camera/camera_lsc_caldata.txt|/data/vendor/camera/camera_lsc_calib.txt|g' "${2}"
