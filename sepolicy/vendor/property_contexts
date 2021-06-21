@@ -32,7 +32,7 @@ persist.vendor.sys.pay.soter                                  u:object_r:vendor_
 vendor.powerhal.                                              u:object_r:vendor_power_prop:s0
 
 # Radio
-ro.build.software.version                                     u:object_r:qcom_ims_prop:s0
+ro.build.software.version                                     u:object_r:vendor_qcom_ims_prop:s0
 ril.fake_bs_flag0                                             u:object_r:vendor_radio_prop:s0
 ril.fake_bs_flag1                                             u:object_r:vendor_radio_prop:s0
 
